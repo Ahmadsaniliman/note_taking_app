@@ -9,9 +9,13 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 25.0),
-        const Text('Notely'),
+        const SizedBox(height: 35.0),
+        const Text(
+          'Notely',
+          style: TextStyle(fontSize: 20.0),
+        ),
         const SizedBox(height: 10.0),
         Image.asset(
           'assests/images/Group 82 1.png',
@@ -25,10 +29,12 @@ class Body extends StatelessWidget {
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
           ),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10.0),
         const Text(
           'Notely is the world"s safest, largest and intelligent digital notebook. Join over 10M+ user already Notely',
+          textAlign: TextAlign.center,
         ),
         const PageRollerr(),
         const SizedBox(height: 20.0),
@@ -39,13 +45,20 @@ class Body extends StatelessWidget {
             color: const Color(0xFFD9614C),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          child: const Text(
-            'Get Started',
-            style: TextStyle(color: Colors.white),
+          child: const Center(
+            child: Text(
+              'Get Started',
+              style: TextStyle(color: Colors.white, fontSize: 15.0),
+            ),
           ),
         ),
         const SizedBox(height: 10.0),
-        const Text('Already Have An Account?'),
+        const Text(
+          'Already Have An Account?',
+          style: TextStyle(
+            color: Color(0xFFD9614C),
+          ),
+        ),
       ],
     );
   }
