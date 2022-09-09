@@ -11,10 +11,11 @@ class PageRoller extends StatelessWidget {
       margin: const EdgeInsets.only(
         right: 5.0,
       ),
-      height: 5,
-      width: 5,
-      decoration: const BoxDecoration(
-        color: Color(0xFFD9614C),
+      height: 10,
+      width: 10,
+      decoration: BoxDecoration(
+        color: const Color(0xFFD9614C),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }
