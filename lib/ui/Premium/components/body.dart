@@ -1,53 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
+import 'package:note_taking_app/routes/route.dart';
 import 'package:note_taking_app/ui/Premium/components/desc_text.dart';
+import 'package:note_taking_app/ui/Premium/components/sub_container.dart';
 import 'package:note_taking_app/ui/Premium/components/title_row.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
   Widget build(BuildContext context) {
-    // int _currentOne = 0;
-    final List<Widget> data = [
-      Column(
-        children: const [
-          Text('Annaul'),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 10.00,
-              bottom: 15.0,
-            ),
-            child: Text(
-              '\$76.99',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Text('per year'),
-        ],
-      ),
-      Column(
-        children: const [
-          Text('Monthly'),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 10.00,
-              bottom: 15.0,
-            ),
-            child: Text(
-              '\$7.99',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Text('per month'),
-        ],
-      ),
+    int _currentOne = 0;
+    final List<Map<String, String>> data = [
+      {
+        "text": "Annual",
+        "price": "\$79.99",
+        "text1": "per year",
+      },
+      {
+        "text": "Monthly",
+        "price": "\$7.99",
+        "text1": "per month",
+      },
     ];
     return Column(
       children: [
@@ -57,37 +36,28 @@ class Body extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(15.0),
-                  height: 140,
-                  width: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color(0xFFD9614C),
-                      width: 7,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      15.0,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Text('${data[index]}'),
-                    ],
-                  ),
+            ...List.generate(
+              data.length,
+              (index) => GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _currentOne == index;
+                  });
+                },
+                child: SubscriptionCont(
+                  currentOne: _currentOne,
+                  data: data,
+                  index: index,
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 25.0),
         DefaultButton(
-          press: () {},
+          press: () {
+            Navigator.of(context).pushNamed(noteViewRoute);
+          },
           text: 'Subscribe',
         ),
         const SizedBox(height: 10.0),
