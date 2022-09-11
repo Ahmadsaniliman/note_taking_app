@@ -13,7 +13,7 @@ class PageRollerr extends StatelessWidget {
       children: [
         ...List.generate(
           3,
-          (index) => const PageRoller(),
+          (index) => PageRoller(index: index),
         )
       ],
     );

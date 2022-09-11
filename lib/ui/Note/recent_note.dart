@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/ui/Note/components/recent_build_app_bar.dart';
+import 'package:note_taking_app/ui/Note/components/recent_note_data.dart';
 
 class RecentNoteView extends StatelessWidget {
   const RecentNoteView({Key? key}) : super(key: key);
@@ -6,37 +8,50 @@ class RecentNoteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: const Color(0xFFE5E5E5),
-        title: const Text(
-          'Recent Notes',
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: Builder(
-          builder: (context) => const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-        ),
-        actions: const [
-          Icon(
-            Icons.search,
-            color: Colors.black,
-          ),
-          SizedBox(width: 17.0),
-        ],
-      ),
+      backgroundColor: const Color(0xFFE5E5E5),
+      appBar: buildReAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 20.0,
           horizontal: 25.0,
         ),
-        child: Column(
-          children: const [],
+        child: GridView.builder(
+          itemCount: recentNoteData.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20.0,
+              crossAxisCount: 2,
+              childAspectRatio: 0.75),
+          itemBuilder: (context, index) => Container(
+            // height: 200,
+            // width: 150,
+            color: Colors.green,
+            child: Text(
+              recentNoteData[index],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+
+// GridView.builder(
+//             itemCount: recentNoteData.length,
+//             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//               childAspectRatio: 0.75,
+//               crossAxisCount: 2,
+//               crossAxisSpacing: 20.0,
+//               mainAxisSpacing: 20.0,
+//             ),
+//             itemBuilder: (context, index) => Container(
+              
+//                 decoration: BoxDecoration(
+//               color: Colors.green,
+//                   borderRadius: BorderRadius.circular(15.0),
+//                 ),
+//                 child: Text(recentNoteData[index]),
+//             ),
+//           ),
+//         ),

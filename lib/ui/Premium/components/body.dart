@@ -13,9 +13,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int _currentOne = 0;
   @override
   Widget build(BuildContext context) {
-    int _currentOne = 0;
     final List<Map<String, String>> data = [
       {
         "text": "Annual",
@@ -41,7 +41,7 @@ class _BodyState extends State<Body> {
               (index) => GestureDetector(
                 onTap: () {
                   setState(() {
-                    _currentOne == index;
+                    _currentOne = index;
                   });
                 },
                 child: SubscriptionCont(

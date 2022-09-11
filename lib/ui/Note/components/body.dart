@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/routes/route.dart';
 import 'package:note_taking_app/ui/Note/components/build_app_bar.dart';
-import 'package:note_taking_app/ui/Note/recent_note.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
