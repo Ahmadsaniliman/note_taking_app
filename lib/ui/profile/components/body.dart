@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
                 text: 'Buy Premium',
               ),
               ProfileCard(
-                image: 'assests/icons/Vector 379.png',
+                image: 'assests/icons/path (1).png',
                 text: 'Edit Profile',
               ),
               ProfileCard(
@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                 text: 'App Theme',
               ),
               ProfileCard(
-                image: 'assests/icons/path (2).png',
+                image: 'assests/icons/path.png',
                 text: 'Notification',
               ),
               ProfileCard(

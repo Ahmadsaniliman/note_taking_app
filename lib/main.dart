@@ -5,6 +5,7 @@ import 'package:note_taking_app/ui/Home/home.dart';
 import 'package:note_taking_app/ui/Note/note.dart';
 import 'package:note_taking_app/ui/Note/recent_note.dart';
 import 'package:note_taking_app/ui/Premium/premium.dart';
+import 'package:note_taking_app/ui/profile/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         premiumViewRoute: (context) => const PremiumSubscriptionView(),
         noteViewRoute: (context) => const NoteView(),
         recentViewRoute: (context) => const RecentNoteView(),
+        profileViewRoute: (context) => const ProfileView(),
       },
     );
   }

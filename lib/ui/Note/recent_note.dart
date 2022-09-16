@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/defaultButton/default_button.dart';
+import 'package:note_taking_app/routes/route.dart';
 import 'package:note_taking_app/ui/Note/components/first_column.dart';
 import 'package:note_taking_app/ui/Note/components/recent_build_app_bar.dart';
 import 'package:note_taking_app/ui/Note/components/second_column.dart';
@@ -11,7 +13,7 @@ class RecentNoteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFE5E5E5),
-      appBar: buildReAppBar(),
+      appBar: buildReAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 10.0,
@@ -29,6 +31,13 @@ class RecentNoteView extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               const ThirdRowCol(),
+              const SizedBox(height: 15.0),
+              DefaultButton(
+                text: 'View Profile',
+                press: () {
+                  Navigator.of(context).pushNamed(profileViewRoute);
+                },
+              ),
             ],
           ),
         ),
