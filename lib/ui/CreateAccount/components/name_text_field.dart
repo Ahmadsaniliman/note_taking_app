@@ -5,9 +5,11 @@ class TextFieldName extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.hintText,
+    required this.controller,
   }) : super(key: key);
   final String labelText;
   final String hintText;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TextFieldName extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(20.0),
