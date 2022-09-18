@@ -11,6 +11,7 @@ import 'package:note_taking_app/ui/Premium/premium.dart';
 import 'package:note_taking_app/ui/profile/profile.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

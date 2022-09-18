@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/routes/route.dart';
 import 'package:note_taking_app/ui/CreateAccount/components/create_acc_text.dart';
 import 'package:note_taking_app/ui/CreateAccount/components/name_text_field.dart';
+import 'dart:developer' as devtool show log;
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -34,44 +36,96 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 30.0),
-          const CreateAccountText(),
-          TextFieldName(
-            hintText: 'Liman Ahmad Sani',
-            labelText: 'Full Name',
-            controller: _fullNameController,
-          ),
-          const SizedBox(height: 20.0),
-          TextFieldName(
-            hintText: 'saniahmad@gmail.com',
-            labelText: 'Email Address',
-            controller: _emailController,
-          ),
-          const SizedBox(height: 20.0),
-          TextFieldName(
-            hintText: '*********',
-            labelText: 'Password',
-            controller: _passwordController,
-          ),
-          const SizedBox(height: 60.0),
-          DefaultButton(
-            text: 'Create Account',
-            press: () {
-              Navigator.of(context).pushNamed(premiumViewRoute);
-            },
-          ),
-          const SizedBox(height: 10.0),
-          const Text(
-            'Already Have An Account?',
-            style: TextStyle(
-              color: Color(0xFFD9614C),
-            ),
-          ),
-        ],
-      ),
-    );
+    return SingleChildScrollView(child: FutureBuilder(
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            Column(
+              children: [
+                const SizedBox(height: 30.0),
+                const CreateAccountText(),
+                TextFieldName(
+                  hintText: 'Liman Ahmad Sani',
+                  labelText: 'Full Name',
+                  controller: _fullNameController,
+                ),
+                const SizedBox(height: 20.0),
+                TextFieldName(
+                  hintText: 'saniahmad@gmail.com',
+                  labelText: 'Email Address',
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 20.0),
+                TextFieldName(
+                  hintText: '*********',
+                  labelText: 'Password',
+                  controller: _passwordController,
+                ),
+                const SizedBox(height: 60.0),
+                DefaultButton(
+                  text: 'Create Account',
+                  press: () async {
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+
+                    try {
+                      final user = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+
+                      devtool.log(
+                        user.toString(),
+                      );
+
+                      final currUser = FirebaseAuth.instance.currentUser!;
+                      await currUser.sendEmailVerification();
+
+                      if (currUser.emailVerified) {
+                        Navigator.of(context).pushNamed(
+                          loginViewRoute,
+                        );
+                      } else {
+                        Navigator.of(context).pushNamed(
+                          verifyEmailViewRoute,
+                        );
+                      }
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'Weak-password') {
+                        devtool.log('Waek Password');
+                      } else if (e.code == 'invalid-email') {
+                        devtool.log('Waek Password');
+                      } else if (e.code == 'email-already-in-use') {
+                        devtool.log('email already in use');
+                      }
+                    } catch (_) {
+                      devtool.log(_.toString());
+                    }
+                  },
+                ),
+                const SizedBox(height: 10.0),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      loginViewRoute,
+                    );
+                  },
+                  child: const Text(
+                    'Already Have An Account?',
+                    style: TextStyle(
+                      color: Color(0xFFD9614C),
+                    ),
+                  ),
+                )
+              ],
+            );
+            break;
+          default:
+            return const CircularProgressIndicator();
+        }
+        return const CircularProgressIndicator();
+      },
+    ));
   }
 }
