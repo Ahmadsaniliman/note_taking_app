@@ -37,24 +37,35 @@ class _LoginViewState extends State<LoginView> {
             vertical: 20.0,
             horizontal: 25.0,
           ),
-          child: Column(
-            children: [
-              const LoginHeadText(),
-              TextFieldName(
-                labelText: 'Email Adress',
-                hintText: 'Enter Your Email Address',
-                controller: _emailController,
-              ),
-              TextFieldName(
-                labelText: 'Password',
-                hintText: 'Enter Your Password',
-                controller: _passwordController,
-              ),
-              DefaultButton(
-                text: '',
-                press: () {},
-              ),
-            ],
+          child: FutureBuilder(
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  Column(
+                    children: [
+                      const LoginHeadText(),
+                      TextFieldName(
+                        labelText: 'Email Adress',
+                        hintText: 'Enter Your Email Address',
+                        controller: _emailController,
+                      ),
+                      TextFieldName(
+                        labelText: 'Password',
+                        hintText: 'Enter Your Password',
+                        controller: _passwordController,
+                      ),
+                      DefaultButton(
+                        text: '',
+                        press: () {},
+                      ),
+                    ],
+                  );
+                  break;
+                default:
+                  return const CircularProgressIndicator();
+              }
+              return const CircularProgressIndicator();
+            },
           ),
         ),
       ),
