@@ -140,7 +140,7 @@ class _BodyState extends State<Body> {
                         color: Color(0xFFD9614C),
                       ),
                     ),
-                  )
+                  ),
                 ],
               );
               break;

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/ui/CreateAccount/components/name_text_field.dart';
@@ -36,8 +37,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             controller: _forgotPasswordController,
           ),
           DefaultButton(
-            text: '',
-            press: () {},
+            text: 'Send reset link',
+            press: () async {
+              final forgotPassword = _forgotPasswordController.text;
+              await FirebaseAuth.instance.sendPasswordResetEmail(
+                email: forgotPassword,
+              );
+            },
           ),
         ],
       ),
