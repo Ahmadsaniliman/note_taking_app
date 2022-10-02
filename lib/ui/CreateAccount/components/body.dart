@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              Column(
+              return Column(
                 children: [
                   const SizedBox(height: 30.0),
                   const CreateAccountText(),
@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
                         );
 
                         final currUser = FirebaseAuth.instance.currentUser!;
-                        await currUser.sendEmailVerification();
+                        currUser.sendEmailVerification();
 
                         if (currUser.emailVerified) {
                           Navigator.of(context).pushNamed(
@@ -143,11 +143,10 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               );
-              break;
             default:
               return const CircularProgressIndicator();
           }
-          return const CircularProgressIndicator();
+          //   return const CircularProgressIndicator();
         },
       ),
     );

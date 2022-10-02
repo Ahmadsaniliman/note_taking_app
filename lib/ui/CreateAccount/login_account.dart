@@ -51,19 +51,22 @@ class _LoginViewState extends State<LoginView> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
-                  Column(
+                  return Column(
                     children: [
+                      const SizedBox(height: 30.0),
                       const LoginHeadText(),
                       TextFieldName(
                         labelText: 'Email Adress',
                         hintText: 'Enter Your Email Address',
                         controller: _emailController,
                       ),
+                      const SizedBox(height: 20.0),
                       TextFieldName(
                         labelText: 'Password',
                         hintText: 'Enter Your Password',
                         controller: _passwordController,
                       ),
+                      const SizedBox(height: 100.0),
                       DefaultButton(
                         text: 'Login',
                         press: () async {
@@ -124,11 +127,11 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ],
                   );
-                  break;
+
                 default:
                   return const CircularProgressIndicator();
               }
-              return const CircularProgressIndicator();
+              //   return const CircularProgressIndicator();
             },
           ),
         ),
