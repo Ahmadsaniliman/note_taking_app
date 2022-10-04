@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/routes/route.dart';
@@ -6,9 +7,15 @@ import 'package:note_taking_app/ui/Note/components/recent_build_app_bar.dart';
 import 'package:note_taking_app/ui/Note/components/second_column.dart';
 import 'package:note_taking_app/ui/Note/components/third_row_col.dart';
 
-class RecentNoteView extends StatelessWidget {
+class RecentNoteView extends StatefulWidget {
   const RecentNoteView({Key? key}) : super(key: key);
 
+  @override
+  State<RecentNoteView> createState() => _RecentNoteViewState();
+}
+
+class _RecentNoteViewState extends State<RecentNoteView> {
+  final dbNotes = FirebaseFirestore.instance.collection('notes').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
