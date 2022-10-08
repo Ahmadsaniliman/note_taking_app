@@ -15,7 +15,6 @@ class RecentNoteView extends StatefulWidget {
 }
 
 class _RecentNoteViewState extends State<RecentNoteView> {
-  final dbNotes = FirebaseFirestore.instance.collection('notes').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
