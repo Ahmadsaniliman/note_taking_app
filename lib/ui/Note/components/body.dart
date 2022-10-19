@@ -43,7 +43,9 @@ class Body extends StatelessWidget {
             DefaultButton(
               text: 'Create A Note',
               press: () {
-                Navigator.of(context).pushNamed(recentViewRoute);
+                Navigator.of(context).pushNamed(
+                  newNoteViewRoute,
+                );
               },
             ),
             const SizedBox(height: 10.0),

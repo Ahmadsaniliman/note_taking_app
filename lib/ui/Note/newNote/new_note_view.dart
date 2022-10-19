@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:note_taking_app/backend/backend.dart';
+import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/ui/CreateAccount/components/name_text_field.dart';
-import 'package:note_taking_app/util/util.dart';
 
 class NewNoteView extends StatefulWidget {
   const NewNoteView({Key? key}) : super(key: key);
@@ -31,22 +31,22 @@ class _NewNoteViewState extends State<NewNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: IconButton(
-        onPressed: () async {
-          if (_titleController.text.isEmpty && _textController.text.isEmpty) {
-            await showErrorAlertDialog(
-              context: context,
-              contentText:
-                  'Title Or Content Field Is Empty Please Input a Text',
-            );
-          } else {
-            await DbStorage().createNote();
-          }
-        },
-        icon: const Icon(
-          Icons.save,
-        ),
-      ),
+      //   floatingActionButton: IconButton(
+      //     onPressed: () async {
+      //       if (_titleController.text.isEmpty && _textController.text.isEmpty) {
+      //         await showErrorAlertDialog(
+      //           context: context,
+      //           contentText:
+      //               'Title Or Content Field Is Empty Please Input a Text',
+      //         );
+      //       } else {
+      //         await DbStorage().createNote();
+      //       }
+      //     },
+      //     icon: const Icon(
+      //       Icons.save,
+      //     ),
+      //   ),
       body: Column(
         children: [
           TextFieldName(
@@ -58,6 +58,20 @@ class _NewNoteViewState extends State<NewNoteView> {
             labelText: 'Content',
             hintText: 'Content',
             controller: _textController,
+          ),
+          DefaultButton(
+            text: 'Save',
+            press: () async {
+              final user =
+                  FirebaseFirestore.instance.collection('limanNotes').doc();
+              final title = _titleController.text;
+              final text = _textController.text;
+
+              await user.set({
+                title: '',
+                text: '',
+              });
+            },
           ),
         ],
       ),
