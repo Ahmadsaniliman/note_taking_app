@@ -68,8 +68,8 @@ class _NewNoteViewState extends State<NewNoteView> {
               final text = _textController.text;
 
               await user.set({
-                title: '',
-                text: '',
+                title: 'title',
+                text: 'text',
               });
             },
           ),
