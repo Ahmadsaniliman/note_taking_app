@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/backend/backend.dart';
+import 'package:note_taking_app/backend/cloud_note.dart';
 import 'package:note_taking_app/defaultButton/default_button.dart';
 import 'package:note_taking_app/ui/CreateAccount/components/name_text_field.dart';
 
@@ -13,6 +14,8 @@ class NewNoteView extends StatefulWidget {
 class _NewNoteViewState extends State<NewNoteView> {
   late final TextEditingController _titleController;
   late final TextEditingController _textController;
+  late final CloudNote cloudNote;
+  late final DbStorage backendServices;
 
   @override
   void initState() {
@@ -62,15 +65,16 @@ class _NewNoteViewState extends State<NewNoteView> {
           DefaultButton(
             text: 'Save',
             press: () async {
-              final user =
-                  FirebaseFirestore.instance.collection('limanNotes').doc();
-              final title = _titleController.text;
-              final text = _textController.text;
-
-              await user.set({
-                title: 'title',
-                text: 'text',
-              });
+              try {
+                final title = _titleController.text;
+                final text = _textController.text;
+                await backendServices.createNote(
+                  text: text,
+                  title: title,
+                );
+              } catch (e) {
+                throw CouldNotCReateNoteException();
+              }
             },
           ),
         ],

@@ -1,4 +1,4 @@
-// ignore_for_file: equal_keys_in_map, duplicate_ignore
+// ignore_for_file: equal_keys_in_map
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:note_taking_app/backend/cloud_note.dart';
@@ -11,11 +11,13 @@ class DbStorage {
   static final DbStorage shared = DbStorage._sharedInstance();
   factory DbStorage() => shared;
 
-  Future<CloudNote> createNote() async {
+  Future<CloudNote> createNote({
+    required String title,
+    required String text,
+  }) async {
     try {
       final newNote = await dbNotes.add({
         userTitle: '',
-        // ignore: equal_keys_in_map
         userContent: '',
       });
 
@@ -51,10 +53,9 @@ class DbStorage {
   Stream<Iterable<CloudNote>> getAllNotes() {
     try {
       return dbNotes.snapshots().map(
-            (doc) => doc.docs
-                .map((e) => CloudNote.fromSnapshot(e))
-                // ignore: unrelated_type_equality_checks
-                .where((note) => dbNotes.id == note),
+            (snapshot) => snapshot.docs.map(
+              (note) => CloudNote.fromSnapshot(note),
+            ),
           );
     } catch (e) {
       throw CouldNotGetAllNoteNoteException();
