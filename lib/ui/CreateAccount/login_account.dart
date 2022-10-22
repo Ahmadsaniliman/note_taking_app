@@ -73,24 +73,26 @@ class _LoginViewState extends State<LoginView> {
                           try {
                             final email = _emailController.text;
                             final password = _passwordController.text;
-                            final cUser = FirebaseAuth.instance.currentUser;
-                            if (cUser!.emailVerified) {
-                              final registerUser = await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                email: email,
-                                password: password,
-                              );
-                              Navigator.of(context).pushNamed(
-                                noteViewRoute,
-                              );
-                              devtool.log(
-                                registerUser.toString(),
-                              );
-                            } else {
-                              Navigator.of(context).pushNamed(
-                                verifyEmailViewRoute,
-                              );
-                            }
+                            // final cUser = FirebaseAuth.instance.currentUser!;
+                            // if (cUser.emailVerified) {
+                            final registerUser = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: email,
+                              password: password,
+                            );
+                            Navigator.of(context).pushNamed(
+                              noteViewRoute,
+                            );
+                            devtool.log(
+                              registerUser.toString(),
+                            );
+
+                            // }
+                            //  else {
+                            //   Navigator.of(context).pushNamed(
+                            //     verifyEmailViewRoute,
+                            //   );
+                            // }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'Wrong Password') {
                               await showErrorAlertDialog(
@@ -103,12 +105,13 @@ class _LoginViewState extends State<LoginView> {
                                 contentText: 'User Not Found',
                               );
                             }
-                          } catch (_) {
-                            await showErrorAlertDialog(
-                              context: context,
-                              contentText: _.toString(),
-                            );
                           }
+                          //    catch (_) {
+                          //     await showErrorAlertDialog(
+                          //       context: context,
+                          //       contentText: _.toString(),
+                          //     );
+                          //   }
                         },
                       ),
                       const SizedBox(height: 10.0),

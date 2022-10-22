@@ -50,34 +50,43 @@ class _NewNoteViewState extends State<NewNoteView> {
       //       Icons.save,
       //     ),
       //   ),
-      body: Column(
-        children: [
-          TextFieldName(
-            labelText: 'Title',
-            hintText: 'title',
-            controller: _titleController,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20.0,
+            horizontal: 20.0,
           ),
-          TextFieldName(
-            labelText: 'Content',
-            hintText: 'Content',
-            controller: _textController,
+          child: Column(
+            children: [
+              TextFieldName(
+                labelText: 'Title',
+                hintText: 'title',
+                controller: _titleController,
+              ),
+              TextFieldName(
+                labelText: 'Content',
+                hintText: 'Content',
+                controller: _textController,
+              ),
+              const SizedBox(height: 40.0),
+              DefaultButton(
+                text: 'Save',
+                press: () async {
+                  try {
+                    final title = _titleController.text;
+                    final text = _textController.text;
+                    await backendServices.createNote(
+                      text: text,
+                      title: title,
+                    );
+                  } catch (e) {
+                    throw CouldNotCReateNoteException();
+                  }
+                },
+              ),
+            ],
           ),
-          DefaultButton(
-            text: 'Save',
-            press: () async {
-              try {
-                final title = _titleController.text;
-                final text = _textController.text;
-                await backendServices.createNote(
-                  text: text,
-                  title: title,
-                );
-              } catch (e) {
-                throw CouldNotCReateNoteException();
-              }
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

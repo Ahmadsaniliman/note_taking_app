@@ -49,10 +49,17 @@ class Body extends StatelessWidget {
               },
             ),
             const SizedBox(height: 10.0),
-            const Text(
-              'Import a note',
-              style: TextStyle(
-                color: Color(0xFFD9614C),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  recentViewRoute,
+                );
+              },
+              child: const Text(
+                'Import a note',
+                style: TextStyle(
+                  color: Color(0xFFD9614C),
+                ),
               ),
             ),
           ],

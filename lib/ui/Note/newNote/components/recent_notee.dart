@@ -13,6 +13,11 @@ class _RecentNoteeState extends State<RecentNotee> {
   late final List<CloudNote> allNotes;
   late final DbStorage backend;
 
+  @override
+  void initState() {
+    super.initState();
+    backend = DbStorage();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,15 @@ class _RecentNoteeState extends State<RecentNotee> {
               ),
             );
           } else {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: Text(
+                'There is No Note Available',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
           }
         },
       ),
